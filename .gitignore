@@ -1,4 +1,5 @@
 other_notebook/*
 input/*
 output/*
+wandb
 !.gitkeep
