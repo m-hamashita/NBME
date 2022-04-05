@@ -3,4 +3,5 @@ input/*
 output/*
 wandb
 .env
+!deberta-v2-3-fast-tokenizer
 !.gitkeep
