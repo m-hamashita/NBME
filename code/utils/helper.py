@@ -161,15 +161,6 @@ def get_logger(filename=OUTPUT_DIR / "train"):
     return logger
 
 
-def seed_everything(seed=42):
-    random.seed(seed)
-    os.environ["PYTHONHASHSEED"] = str(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
-    torch.backends.cudnn.deterministic = True
-
-
 # ====================================================
 # Helper functions
 # ====================================================
@@ -309,5 +300,3 @@ def inference_fn(test_loader, model, device):
         preds.append(y_preds.sigmoid().to("cpu").numpy())
     predictions = np.concatenate(preds)
     return predictions
-
-

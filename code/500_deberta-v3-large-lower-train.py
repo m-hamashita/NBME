@@ -40,7 +40,17 @@ from utils.dataset import TrainDataset
 from utils.fix_annotation import fix_annotation
 from utils.helper import (create_labels_for_scoring, get_char_probs,
                           get_logger, get_predictions, get_results, get_score,
-                          seed_everything, span_micro_f1)
+                          span_micro_f1)
+
+
+def seed_everything(seed=42):
+    random.seed(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+
 
 # %env TOKENIZERS_PARALLELISM=true
 # ====================================================
@@ -374,6 +384,7 @@ if __name__ == "__main__":
 
     # incorrect annotation
     train = fix_annotation(train)
+    train["annotation_length"] = train["annotation"].apply(len)
     # TODO: 本当に lower が効くのか検証
     train["feature_text"] = train["feature_text"].str.lower()  # とりあえず全部小文字にする
     train["pn_history"] = train["pn_history"].str.lower()

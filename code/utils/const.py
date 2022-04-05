@@ -5,7 +5,7 @@ class CFG:
     wandb = True
     competition = "NBME"
     _wandb_kernel = "mpeg"
-    debug = True
+    debug = False
     apex = True
     print_freq = 100
     num_workers = 4
