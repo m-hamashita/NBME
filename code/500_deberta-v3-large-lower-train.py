@@ -30,17 +30,27 @@ from torch.nn import Parameter
 from torch.optim import SGD, Adam, AdamW
 from torch.utils.data import DataLoader, Dataset
 from tqdm.auto import tqdm
-from transformers import (AutoConfig, AutoModel, AutoTokenizer,
-                          get_cosine_schedule_with_warmup,
-                          get_linear_schedule_with_warmup)
+from transformers import (
+    AutoConfig,
+    AutoModel,
+    AutoTokenizer,
+    get_cosine_schedule_with_warmup,
+    get_linear_schedule_with_warmup,
+)
 
 import wandb
 from utils.const import CFG
 from utils.dataset import TrainDataset
 from utils.fix_annotation import fix_annotation
-from utils.helper import (create_labels_for_scoring, get_char_probs,
-                          get_logger, get_predictions, get_results, get_score,
-                          span_micro_f1)
+from utils.helper import (
+    create_labels_for_scoring,
+    get_char_probs,
+    get_logger,
+    get_predictions,
+    get_results,
+    get_score,
+    span_micro_f1,
+)
 
 
 def seed_everything(seed=42):
