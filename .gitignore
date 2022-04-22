@@ -5,3 +5,4 @@ wandb
 .env
 !deberta-v2-3-fast-tokenizer
 !.gitkeep
+!config.yml
