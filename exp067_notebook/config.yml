@@ -1,0 +1,32 @@
+project: NBME-ScoreClinicalPatientNotes
+_wandb_kernel: MasakiAOTA
+apex: true
+batch_scheduler: true
+batch_size: 6
+betas:
+    - 0.9
+    - 0.999
+ckpt_name : masaki_deberta_large
+decoder_lr: 1.5e-5
+device: cuda
+debug: false
+encoder_lr: 1.5e-5
+epochs: 6
+eps: 1e-6
+gradient_accumulation_steps: 1
+max_len: 512
+max_grad_norm: 1000
+min_lr: 8e-6
+model: microsoft/deberta-v3-large
+n_folds: 5
+num_cycles: 0.5
+num_warmup_steps: 0
+num_workers: 2
+optim: adamw
+output_dir: ../output/exp067
+print_freq: 100
+scheduler: cosine
+seed: 42
+weight_decay: 0.01
+description: empty
+choice_weight: [0.3, 0.2, 0.2, 0.1, 0.2] #feature_text, feature_text_ja, feature_text_ko, feature_text_ru, feature_text_ca の選択確率
