@@ -13,7 +13,7 @@ debug: false
 encoder_lr: 2.5e-5
 epochs: 5
 eps: 1e-6
-gradient_accumulation_steps: 1
+gradient_accumulation_steps: 2
 max_len: 512
 max_grad_norm: 1000
 min_lr: 8e-6
@@ -23,7 +23,7 @@ num_cycles: 0.5
 num_warmup_steps: 0
 num_workers: 4
 optim: adamw
-output_dir: ../../output/
+output_dir: ../output/
 print_freq: 100
 scheduler: cosine
 seed: 42
