@@ -1,0 +1,34 @@
+project: NBME-ScoreClinicalPatientNotes
+_wandb_kernel: RyosukeSAKURAI
+apex: true
+batch_scheduler: true
+batch_size: 12
+betas: 
+    - 0.9
+    - 0.999
+ckpt_name : raiii_deberta_large
+decoder_lr: 2.5e-5
+device: cuda
+debug: false
+encoder_lr: 2.5e-5
+epochs: 6
+eps: 1e-6
+gradient_accumulation_steps: 1
+loss_removal_start_ep: 3
+max_len: 512
+max_grad_norm: 1000
+min_lr: 8e-6
+model: microsoft/deberta-v3-large
+n_folds: 5
+n_loss_removal_std: 6.5
+num_cycles: 0.5
+num_warmup_steps: 0
+num_workers: 4
+optim: adamw
+output_dir: ../output/
+pl_start_ep: 0
+print_freq: 100
+scheduler: cosine
+seed: 42
+weight_decay: 0.01
+description: empty
