@@ -1,0 +1,43 @@
+project: NBME-ScoreClinicalPatientNotes
+_wandb_kernel: mpeg
+adv_eps: 0.001
+adv_lr: 1
+adv_start_epoch: 10
+apex: true
+batch_scheduler: true
+batch_size: 12
+betas:
+    - 0.9
+    - 0.999
+ckpt_name : mpeg_roberta_large
+decoder_lr: 2.5e-5
+device: cuda
+debug: false
+encoder_lr: 2.5e-5
+epochs: 6
+eps: 1e-6
+gradient_accumulation_steps: 1
+loss_removal_start_ep: 4
+max_len: 512
+max_grad_norm: 1000
+min_lr: 8e-6
+model: ../input/roberta-large-self-supervised-learning-9epoch
+n_eval_steps: 5000
+n_folds: 4
+n_loss_removal_std: 6.5
+num_cycles: 0.5
+num_warmup_steps: 0
+num_workers: 4
+optim: adamw
+output_dir: ../output/exp096/non-leak/
+pl_frac: 1.0
+print_freq: 1000
+scheduler: cosine
+seed: 42
+th_range:
+    - 0.25
+    - 0.7
+th_step: 0.005
+tokenizer: roberta-large
+weight_decay: 0.01
+description: empty
