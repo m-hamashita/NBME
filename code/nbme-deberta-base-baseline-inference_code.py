@@ -8,13 +8,10 @@ class CFG:
     model = "microsoft/deberta-base"
     batch_size = 24
     fc_dropout = 0.2
-    max_len = 466  # (train から引っ張ってきてる)
+    max_len = 466
     seed = 42
     n_fold = 5
-    trn_fold = [0, 1, 2, 3, 4]  # これ必要？
-
-
-# # Library
+    trn_fold = [0, 1, 2, 3, 4]
 
 
 # ====================================================
@@ -46,24 +43,16 @@ print(f"tokenizers.__version__: {tokenizers.__version__}")
 print(f"transformers.__version__: {transformers.__version__}")
 from transformers import AutoTokenizer, AutoModel, AutoConfig
 
-# get_ipython().run_line_magic("env", "TOKENIZERS_PARALLELISM=true")
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-# # tokenizer
 # ====================================================
 # tokenizer
 # ====================================================
 CFG.tokenizer = AutoTokenizer.from_pretrained(CFG.path + "tokenizer/")
 
 
-# # Helper functions for scoring
-
-
 # From https://www.kaggle.com/theoviel/evaluation-metric-folds-baseline
-
-
 def micro_f1(preds, truths):
     """
     Micro f1 on binary arrays.
@@ -273,26 +262,12 @@ def preprocess_features(features):
 features = preprocess_features(features)
 patient_notes = pd.read_csv(
     "../input/nbme-score-clinical-patient-notes/patient_notes.csv"
-)
-
-# print(f"test.shape: {test.shape}")
-# display(test.head())
-# print(f"features.shape: {features.shape}")
-# display(features.head())
-# print(f"patient_notes.shape: {patient_notes.shape}")
-# display(patient_notes.head())
-
 
 test = test.merge(features, on=["feature_num", "case_num"], how="left")
 test = test.merge(patient_notes, on=["pn_num", "case_num"], how="left")
-# display(test.head())
-
-
-# # Dataset
-
 
 # ====================================================
-# Dataset (train とおなじ)
+# Dataset
 # ====================================================
 def prepare_input(cfg, text, feature_text):
     inputs = cfg.tokenizer(
@@ -325,11 +300,8 @@ class TestDataset(Dataset):
         return inputs
 
 
-# # Model
-
-
 # ====================================================
-# Model # inference でも必要なのか (train の扱いを確認する)
+# Model
 # ====================================================
 class CustomModel(nn.Module):
     def __init__(self, cfg, config_path=None, pretrained=False):
@@ -350,8 +322,6 @@ class CustomModel(nn.Module):
         self.fc = nn.Linear(self.config.hidden_size, 1)
         self._init_weights(self.fc)
 
-    # ここの初期化わからん
-    # module によって初期化が異なる（自明）
     def _init_weights(self, module):
         if isinstance(module, nn.Linear):
             module.weight.data.normal_(mean=0.0, std=self.config.initializer_range)
@@ -374,9 +344,6 @@ class CustomModel(nn.Module):
         feature = self.feature(inputs)
         output = self.fc(self.fc_dropout(feature))
         return output
-
-
-# # inference
 
 
 # ====================================================
@@ -425,9 +392,6 @@ for fold in CFG.trn_fold:
     torch.cuda.empty_cache()
     predictions = np.mean(predictions, axis=0)
 
-# # Submission
-
 results = get_results(predictions, th=best_th)
 submission["location"] = results
-# display(submission.head())
 submission[["id", "location"]].to_csv("submission.csv", index=False)
