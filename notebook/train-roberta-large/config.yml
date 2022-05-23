@@ -1,5 +1,5 @@
 project: NBME-ScoreClinicalPatientNotes
-_wandb_kernel: mpeg
+_wandb_kernel: hamashita
 adv_eps: 0.001
 adv_lr: 1
 adv_start_epoch: 10
@@ -9,7 +9,7 @@ batch_size: 12
 betas:
     - 0.9
     - 0.999
-ckpt_name : mpeg_roberta_large
+ckpt_name : roberta_large
 decoder_lr: 2.5e-5
 device: cuda
 debug: false
